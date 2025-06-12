@@ -1,0 +1,31 @@
+gitignore
+# Byte-compiled files
+*.pyc
+__pycache__/
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+venv.old/
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.localized
+
+# Dependencies
+Pipfile.lock
+
+# pytest cache
+.pytest_cache
+
+# mypy cache
+.mypy_cache
