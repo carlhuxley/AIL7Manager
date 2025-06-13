@@ -3,6 +3,7 @@ from unittest.mock import patch, MagicMock
 
 # Assuming postgres_models.py contains the Project model and logic
 # for interacting with MongoDB for Evidence.
+# It also contains the definition for the Project model with columns like due_date.
 # You might need to adjust the import path based on your project structure.
 from database.models.postgres_models import Project
 
@@ -28,6 +29,18 @@ def mock_project():
     """Fixture to create a mock Project instance."""
     project = Project(id=1, name="Test Project", description="A project for testing")
     return project
+
+def test_project_due_date_column_exists_and_is_datetime():
+    """
+    Tests that the Project model has a 'due_date' column and it is a DateTime type.
+    """
+    # Get the column definition for 'due_date' from the Project model's __table__
+    # Assuming you are using SQLAlchemy and the model is mapped to a table
+    from sqlalchemy import DateTime
+    due_date_column = Project.__table__.columns.get('due_date')
+
+    assert due_date_column is not None, "Project model should have a 'due_date' column"
+    assert isinstance(due_date_column.type, DateTime), "The 'due_date' column should be of type DateTime"
 
 @patch('database.models.postgres_models.mongo_client') # Patch the mongo_client wherever it's imported in postgres_models.py
 def test_project_evidence_relationship_with_mock_mongo(mock_mongo_client, mock_project, mock_mongo_db):
