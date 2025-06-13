@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 from datetime import datetime
+from pymongo import MongoClient
+
+mongo_client = MongoClient('mongodb://localhost:27017/') # This needs to be mocked
 
 Base = declarative_base()
 
@@ -34,10 +37,20 @@ class Project(Base):
     description = Column(Text)
     start_date = Column(DateTime)
     end_date = Column(DateTime)
+    due_date = Column(DateTime)
     status = Column(String)
 
     owner = relationship("User", back_populates="projects")
     evidence = relationship("EvidenceKSBLink", back_populates="project") # Note: this needs refinement as evidence is in Mongo
+
+
+def get_related_evidence(self):
+    db = mongo_client.get_database('your_mongodb_database_name') # Replace with your DB name
+    evidence_collection = db.evidence
+    # Assuming 'project_id' is the linking field in the MongoDB evidence documents
+    evidence_list = list(evidence_collection.find({"project_id": self.id}))
+    return evidence_list
+
 
 class EvidenceKSBLink(Base):
     __tablename__ = "evidence_ksb_link"
