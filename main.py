@@ -6,14 +6,17 @@ from sqlalchemy.orm import sessionmaker, Session
 from pymongo import MongoClient
 import os
 from database.models.postgres_models import Base
-from config import postgres_url
+
+db_user = os.environ.get("POSTGRES_USER")
+db_password = os.environ.get("POSTGRES_PASSWORD")
+db = os.environ.get("POSTGRES_DB")
 
 # Database configuration
-POSTGRES_URL: str = postgres_url
+postgres_url: str = "postgresql://{db_user}:{db_password}@localhost/{db}"
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017/")
 
 # PostgreSQL setup
-engine = create_engine(POSTGRES_URL)
+engine = create_engine(postgres_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base.metadata.create_all(bind=engine)
 
