@@ -6,6 +6,8 @@ from sqlalchemy.orm import sessionmaker, Session
 from pymongo import MongoClient
 import os
 from database.models.postgres_models import Base
+from dotenv import load_dotenv  # Import load_dotenv
+load_dotenv()  # Load environment variables from .env file
 
 db_user = os.environ.get("POSTGRES_USER")
 db_password = os.environ.get("POSTGRES_PASSWORD")
