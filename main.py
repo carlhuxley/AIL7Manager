@@ -14,7 +14,7 @@ db_password = os.environ.get("POSTGRES_PASSWORD")
 db = os.environ.get("POSTGRES_DB")
 
 # Database configuration
-postgres_url: str = "postgresql://{db_user}:{db_password}@127.0.0.1/{db}"
+postgres_url: str = "postgresql://{db_user}:{db_password}@127.0.0.1:5432/{db}"
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017/")
 
 # PostgreSQL setup
