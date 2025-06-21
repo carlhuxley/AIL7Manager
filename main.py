@@ -6,9 +6,10 @@ from sqlalchemy.orm import sessionmaker, Session
 from pymongo import MongoClient
 import os
 from database.models.postgres_models import Base
+from config import postgres_url
 
 # Database configuration
-POSTGRES_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/apprentice_hub")
+POSTGRES_URL: str = postgres_url
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017/")
 
 # PostgreSQL setup
