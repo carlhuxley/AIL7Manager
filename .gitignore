@@ -17,6 +17,7 @@ venv.old/
 .idea/
 *.sublime-workspace
 *.sublime-project
+.idx/
 
 # OS generated files
 .DS_Store

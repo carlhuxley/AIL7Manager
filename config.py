@@ -8,7 +8,7 @@ db = os.environ.get("POSTGRES_DB")
 
 class Settings(BaseSettings):
     # Database settings
-    postgres_url: str = "postgresql://{db_user}:{db_password}@localhost/{db}"
+    postgres_url: str = "postgresql://{db_user}:{db_password}@127.0.0.1:5432/{db}"
     mongodb_url: str = "mongodb://localhost:27017/"
     
     # Security settings
