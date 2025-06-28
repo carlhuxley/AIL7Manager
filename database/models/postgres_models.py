@@ -41,26 +41,27 @@ class Project(Base):
     status = Column(String)
 
     owner = relationship("User", back_populates="projects")
-    evidence = relationship("EvidenceKSBLink", back_populates="project") # Note: this needs refinement as evidence is in Mongo
 
-
-def get_related_evidence(self):
-    db = mongo_client.get_database('your_mongodb_database_name') # Replace with your DB name
-    evidence_collection = db.evidence
-    # Assuming 'project_id' is the linking field in the MongoDB evidence documents
-    evidence_list = list(evidence_collection.find({"project_id": self.id}))
-    return evidence_list
-
+    def get_related_evidence(self):
+        """
+        Fetches related evidence documents from MongoDB.
+        Note: This assumes the MongoDB connection is handled and 'project_id'
+        is used to link evidence to projects.
+        """
+        # TODO: Centralize MongoDB client and database name in config
+        db = mongo_client.get_database('apprentice_hub_db')
+        evidence_collection = db.evidence
+        evidence_list = list(evidence_collection.find({"project_id": self.id}))
+        return evidence_list
 
 class EvidenceKSBLink(Base):
     __tablename__ = "evidence_ksb_link"
 
-    evidence_id = Column(String, primary_key=True) # Storing MongoDB _id as a string
+    evidence_id = Column(String, primary_key=True)  # Storing MongoDB _id as a string
     ksb_id = Column(Integer, ForeignKey("ksbs.id"), primary_key=True)
+    project_id = Column(Integer, ForeignKey("projects.id"), nullable=True)
 
     ksb = relationship("KSB", back_populates="evidence_links")
-    # Need to define relationship to evidence from MongoDB separately
-    # project = relationship("Project", back_populates="evidence") # This relationship needs adjustment
 
 class LearningLog(Base):
     __tablename__ = "learning_logs"

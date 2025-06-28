@@ -7,15 +7,18 @@ from pymongo import MongoClient
 import os
 from database.models.postgres_models import Base
 from dotenv import load_dotenv  # Import load_dotenv
-load_dotenv()  # Load environment variables from .env file
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))  # Load environment variables from .env file
 
 db_user = os.environ.get("POSTGRES_USER")
 db_password = os.environ.get("POSTGRES_PASSWORD")
 db = os.environ.get("POSTGRES_DB")
 
+if not all([db_user, db_password, db]):
+    raise ValueError("Database credentials not found. Please check your .env file.")
+
 # Database configuration
 #postgres_url: str = "postgresql://{db_user}:{db_password}@[::1]:5432/{db}"
-postgres_url: str = "postgresql://apprentice_user:p4ssw0rd@[::1]:5432/apprentice_hub"
+postgres_url: str = f"postgresql+pg8000://{db_user}:{db_password}@[::1]:5432/{db}"
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017/")
 
 # PostgreSQL setup
