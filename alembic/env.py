@@ -65,6 +65,7 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    print(f"Database URL: {settings.postgres_url}")
     # Use the database URL from your settings
     connectable = create_engine(settings.postgres_url)
 
