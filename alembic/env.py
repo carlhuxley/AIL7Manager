@@ -66,6 +66,13 @@ def run_migrations_online() -> None:
 
     """
     print(f"Database URL: {settings.postgres_url}")
+    print(f"POSTGRES_USER: {settings.postgres_user}")
+    print(f"POSTGRES_PASSWORD: {settings.postgres_password}")
+    print(f"POSTGRES_HOST: {settings.postgres_host}")
+    print(f"POSTGRES_PORT: {settings.postgres_port}")
+    print(f"POSTGRES_DB: {settings.postgres_db}")
+    print(f"Database URL: {settings.postgres_url}") # Keep this line
+
     # Use the database URL from your settings
     connectable = create_engine(settings.postgres_url)
 
