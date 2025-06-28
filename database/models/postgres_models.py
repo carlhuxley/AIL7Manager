@@ -56,12 +56,15 @@ class Project(Base):
 
 class EvidenceKSBLink(Base):
     __tablename__ = "evidence_ksb_link"
-
-    evidence_id = Column(String, primary_key=True)  # Storing MongoDB _id as a string
+    evidence_id = Column(String, primary_key=True) # Assuming evidence_id is a string as in the data model
     ksb_id = Column(Integer, ForeignKey("ksbs.id"), primary_key=True)
-    project_id = Column(Integer, ForeignKey("projects.id"), nullable=True)
+    # Assuming project_id is also part of this link table
+    project_id = Column(Integer, ForeignKey("projects.id"), nullable=True) 
 
     ksb = relationship("KSB", back_populates="evidence_links")
+    # Add relationship to Evidence and Project models if they exist
+    # evidence = relationship("Evidence", back_populates="ksb_links") 
+    # project = relationship("Project", back_populates="ksb_links")
 
 class LearningLog(Base):
     __tablename__ = "learning_logs"
